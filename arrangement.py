@@ -7,5 +7,3 @@ def arrangement(a,b):
             c[i].append(d%a)
             d=d//a
     return c
-
-print(arrangement(2,10))

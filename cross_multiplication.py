@@ -8,9 +8,3 @@ def cross_multiplication(a,b):
         d=a[i]*b[i]
         c.append(d)
     return c
-
-a=[1,2,3]
-b=[4,5,6]
-c=cross_multiplication(a,b)
-
-print(c)
