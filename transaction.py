@@ -37,7 +37,7 @@ def transaction(buy_weight,buy_quantity_weight,keep_weight,keep_quantity_weight,
     sheet = workbook.active
 
     #ZeroMoney
-    money=0
+    money=1000
     stock=0
 
     #find start day
@@ -54,7 +54,7 @@ def transaction(buy_weight,buy_quantity_weight,keep_weight,keep_quantity_weight,
         max_day=len(sell_quantity_weight)
 
     #get three value
-    for i in range(max_day,31): #2533
+    for i in range(2500,2533): #max_day,2533
         buy_value=transaction_val(buy_weight,buy_quantity_weight,i)
         keep_value=transaction_val(keep_weight,keep_quantity_weight,i)
         sell_value=transaction_val(sell_weight,sell_quantity_weight,i)
@@ -62,26 +62,25 @@ def transaction(buy_weight,buy_quantity_weight,keep_weight,keep_quantity_weight,
         #choose
         if(buy_value>keep_value and buy_value>sell_value):
             buy_num=int(buy_value)
+            if(money-(buy_num*float(sheet["D"+str(i+1)].value))<0):
+                buy_num=money//float(sheet["D"+str(i+1)].value)
             stock=stock+buy_num
-            money=money-(buy_num*float(sheet["D"+str(i+1)].value)*1000)
-            print("Day"+str(i)+" Buy"+str(buy_num))
+            money=money-(buy_num*float(sheet["D"+str(i+1)].value))
+            print("Day"+str(i)+" Buy:"+str(buy_num)+" Stock:"+str(stock)+" Stock Price:"+str(sheet["D"+str(i+1)].value)+" Money:"+str(int(money)))
         
         elif(keep_value>buy_value and keep_value>sell_value):
-            print("Day"+str(i)+" Keep")
+            print("Day"+str(i)+" Keep"+" Stock:"+str(stock)+" Stock Price:"+str(sheet["D"+str(i+1)].value)+" Money:"+str(int(money)))
 
         elif(sell_value>buy_value and sell_value>keep_value):
             sell_num=int(sell_value)
-            if((stock-sell_num)>=0):
-                stock=stock-sell_num
-                money=money+(sell_num*float(sheet["D"+str(i+1)].value)*1000)
-            else:
-                money=money+(stock*float(sheet["D"+str(i+1)].value)*1000)
-                stock=0
-            print("Day"+str(i)+" Sell"+str(sell_num))
-        print(" Money:"+str(money))
+            if((stock-sell_num)<0):
+                sell_num=stock
+            money=money+(stock*float(sheet["D"+str(i+1)].value))
+            stock=stock-sell_num
+            print("Day"+str(i)+" Sell:"+str(sell_num)+" Stock:"+str(stock)+" Stock Price:"+str(sheet["D"+str(i+1)].value)+" Money:"+str(int(money)))
     #end count
-    money=money+(stock*867000)
-    return money/stock
+    money=money+stock*float(sheet["D"+str(31)].value)
+    return money
 
 buy_weight=[1,2,3]
 buy_quantity_weight=[1,2,3]
