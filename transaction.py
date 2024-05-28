@@ -35,7 +35,7 @@ def transaction(buy_weight,buy_quantity_weight,keep_weight,keep_quantity_weight,
         buy_value=transaction_val(buy_weight,buy_quantity_weight,stock_price,stock_quantity,i)
         keep_value=transaction_val(keep_weight,keep_quantity_weight,stock_price,stock_quantity,i)
 
-        #choose
+        #transact
         x=buy_value
         if(x<0):
             x=-x
@@ -56,21 +56,21 @@ def transaction(buy_weight,buy_quantity_weight,keep_weight,keep_quantity_weight,
     money=money+stock*float(len(stock_price)-1)
     return money
 
-import openpyxl
+#import openpyxl
 
-file_path = "D:/Stock AI/Stock_Price_Data/Stock_tsmc.xlsx"
-workbook = openpyxl.load_workbook(file_path)
-sheetx = workbook.active
+# file_path = "D:/Stock AI/Stock_Price_Data/Stock_tsmc.xlsx"
+# workbook = openpyxl.load_workbook(file_path)
+# sheetx = workbook.active
 
-stock_price=[]
-stock_quantity=[]
-for i in range(2,3534):
-    stock_price.append(float(sheetx["D"+str(i)].value))
-    stock_quantity.append(float(sheetx["G"+str(i)].value))
+# stock_price=[]
+# stock_quantity=[]
+# for i in range(2,3534):
+#     stock_price.append(float(sheetx["D"+str(i)].value))
+#     stock_quantity.append(float(sheetx["G"+str(i)].value))
 
-buy_weight=[-1,0,1]
-buy_quantity_weight=[-1,0,1]
-keep_weight=[0.5,0,-0.5]
-keep_quantity_weight=[0.5,0,-0.5]
+# buy_weight=[-1,0,1]
+# buy_quantity_weight=[-1,0,1]
+# keep_weight=[0.5,0,-0.5]
+# keep_quantity_weight=[0.5,0,-0.5]
 
-print(transaction(buy_weight,buy_quantity_weight,keep_weight,keep_quantity_weight,stock_price,stock_quantity))
+# print(transaction(buy_weight,buy_quantity_weight,keep_weight,keep_quantity_weight,stock_price,stock_quantity))
