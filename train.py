@@ -23,6 +23,7 @@ def correct_weight(weights):
     return weights
 
 #train
+print("start")
 money=0
 max_money=0
 best=[]
@@ -31,6 +32,7 @@ day_arr=ar.arrangement(len(stock_price),4)
 for i in range(len(day_arr)):
     for j in range(4):
         day_arr[i][j]=day_arr[i][j]+1
+print("Days_Arrangment Done")
 
 for i in range(len(day_arr)):
     price_weights=ar.arrangement(201,day_arr[i][0])
@@ -42,6 +44,8 @@ for i in range(len(day_arr)):
     price_quantity_weights=correct_weight(price_quantity_weights)
     keep_weights=correct_weight(keep_weights)
     keep_quantity_weights=correct_weight(keep_quantity_weights)
+
+    print("Weights_Arrangment "+str(i)+" Done")
 
     for j in range(0,len(price_weights)):
         for k in range(0,len(price_quantity_weights)):
