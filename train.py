@@ -4,13 +4,13 @@ import arrangement as ar
 import openpyxl
 
 #load excel data
-file_path = "D:/Stock AI/Stock_Price_Data/Stock_tsmc.xlsx"
+file_path = "D:/Stock AI/Stock_Price_Data/Stock_00940.xlsx"
 workbook = openpyxl.load_workbook(file_path)
 sheetx = workbook.active
 
 stock_price=[]
 stock_quantity=[]
-for i in range(2,3534):
+for i in range(2,42):
     stock_price.append(float(sheetx["D"+str(i)].value))
     stock_quantity.append(float(sheetx["G"+str(i)].value))
 
@@ -18,7 +18,7 @@ for i in range(2,3534):
 def correct_weight(weights):
     for i in range(len(weights)):
         for j in range(len(weights[i])):
-            weights[i][j]=(weights[i][j]-100)/100
+            weights[i][j]=(weights[i][j]-100)/1
     
     return weights
 
@@ -33,6 +33,7 @@ for i in range(len(day_arr)):
     for j in range(4):
         day_arr[i][j]=day_arr[i][j]+1
 print("Days_Arrangment Done")
+print(day_arr)
 
 for i in range(len(day_arr)):
     price_weights=ar.arrangement(201,day_arr[i][0])
@@ -46,6 +47,7 @@ for i in range(len(day_arr)):
     keep_quantity_weights=correct_weight(keep_quantity_weights)
 
     print("Weights_Arrangment "+str(i)+" Done")
+    print(price_weights)
 
     for j in range(0,len(price_weights)):
         for k in range(0,len(price_quantity_weights)):
@@ -59,5 +61,6 @@ for i in range(len(day_arr)):
                         best.append(k)
                         best.append(m)
                         best.append(n)
+                        print(best)
 
 print(best)

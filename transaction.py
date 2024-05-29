@@ -31,7 +31,7 @@ def transaction(buy_weight,buy_quantity_weight,keep_weight,keep_quantity_weight,
         max_day=len(keep_quantity_weight)
 
     #get three value
-    for i in range(2500,len(stock_price)+1): #max_day
+    for i in range(max_day,len(stock_price)+1): #max_day
         buy_value=transaction_val(buy_weight,buy_quantity_weight,stock_price,stock_quantity,i)
         keep_value=transaction_val(keep_weight,keep_quantity_weight,stock_price,stock_quantity,i)
 

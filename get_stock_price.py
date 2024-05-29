@@ -11,10 +11,10 @@ driver.get("https://www.twse.com.tw/zh/trading/historical/stock-day.html")
 
 #search
 stock_no = driver.find_element(By.NAME, "stockNo")
-stock_no.send_keys("2330")
+stock_no.send_keys("00940")
 
-for i in range(99,114):
-    for j in range(1,13):
+for i in range(113,114):
+    for j in range(4,6):
         year_select=driver.find_element(By.NAME,"yy")
         year_option=Select(year_select)
         year_option.select_by_visible_text("民國 "+ str(i) +" 年")

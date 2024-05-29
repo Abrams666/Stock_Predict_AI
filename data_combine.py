@@ -17,8 +17,8 @@ sheet["H1"]="價差"
 #read csv file
 counter=1
 
-for yy in range(2010,2025):
-    for mm in range(1,13):
+for yy in range(2024,2025):
+    for mm in range(4,6):
         if((yy==2024) & (mm==6)):
             break
         if (len(str(mm))==1):
@@ -29,7 +29,7 @@ for yy in range(2010,2025):
         #read csv
         data_array = []
 
-        csvfile=open('D:/Stock AI/Stock_Price_Data/scv/STOCK_DAY_2330_'+str(yy)+str(m)+'.csv')
+        csvfile=open('D:/Stock AI/Stock_Price_Data/scv/STOCK_DAY_00940_'+str(yy)+str(m)+'.csv')
         data = csv.reader(csvfile)
         next(data)
 
@@ -53,5 +53,5 @@ for yy in range(2010,2025):
             counter=counter+1
 
 #save excel
-workbook.save('Stock_tsmc.xlsx')
+workbook.save('Stock_00940.xlsx')
     
