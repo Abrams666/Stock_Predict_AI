@@ -48,12 +48,12 @@ def transaction(buy_weight,buy_quantity_weight,keep_weight,keep_quantity_weight,
                 buy_num=-stock
             stock=stock+buy_num
             money=money-buy_num*stock_price[i-1]
-            print("Day"+str(i)+" Num:"+str(buy_num)+" Stock:"+str(stock)+" Stock Price:"+str(stock_price[i-1])+" Money:"+str(int(money)))
         elif(keep_value>=buy_value):
-            print("Day"+str(i)+" Num:0 Stock:"+str(stock)+" Stock Price:"+str(stock_price[i-1])+" Money:"+str(int(money)))
+            continue
 
     #end count
     money=money+stock*float(len(stock_price)-1)
+    print(money)
     return money
 
 #import openpyxl
