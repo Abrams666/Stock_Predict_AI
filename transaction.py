@@ -54,7 +54,6 @@ def transaction(buy_weight,buy_quantity_weight,keep_weight,keep_quantity_weight,
     #end count
     money=money+stock*float(len(stock_price)-1)
     print(money)
-    print("-")
     return money
 
 #import openpyxl

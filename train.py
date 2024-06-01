@@ -32,7 +32,7 @@ x=0
 day_arr=ar.arrangement(1,4) #len(stock_price)
 for i in range(len(day_arr)):
     for j in range(4):
-        day_arr[i][j]=day_arr[i][j]+3
+        day_arr[i][j]=day_arr[i][j]+2
 print("Days_Arrangment Done")
 print(day_arr)
 
