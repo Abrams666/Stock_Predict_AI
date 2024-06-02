@@ -1,14 +1,13 @@
 #imports
-import transaction as ts
 import arrangement as ar
+import differential as df
+import transaction as ts
 import openpyxl
 
 #load stock data
 file_path = "D:/Stock AI/Stock_Price_Data/Stock_tsmc.xlsx"
 workbook = openpyxl.load_workbook(file_path)
 sheetx = workbook.active
-
-print(len(sheetx["A"]))
 
 stock_price=[]
 stock_quantity=[]
@@ -26,67 +25,55 @@ for i in range(2,len(sheetx["A"])+1):
     best_situation.append(float(sheetx["B"+str(i)].value))
 
 #day arrangement
-day_arr=ar.arrangement(len(stock_price),2) #len(stock_price)
+day_arr=ar.arrangement(len(stock_price),2)
 for i in range(len(day_arr)):
     for j in range(4):
         day_arr[i][j]=day_arr[i][j]+1
 
-# #correct_weight
-# def correct_weight(weights):
-#     for i in range(len(weights)):
-#         for j in range(len(weights[i])):
-#             weights[i][j]=(weights[i][j]-1)/10
-    
-#     return weights
+#gradient decent
+learn_rate=0.000001
+max_money=0
+best_price_weight=[]
+best_quantity_weight=[]
 
-# #train
-# print("start")
-# money=0
-# max_money=0
-# best=[0,0,0,0]
-# x=0
+for i in range(len(day_arr)):
+    #init weight
+    price_weight=[]
+    quantity_weight=[]
+    b=-100
 
-# day_arr=ar.arrangement(1,4) #len(stock_price)
-# for i in range(len(day_arr)):
-#     for j in range(4):
-#         day_arr[i][j]=day_arr[i][j]+2
-# print("Days_Arrangment Done")
-# print(day_arr)
+    for j in range(day_arr[i][0]):
+        price_weight.append(-0.01)
 
-# for i in range(len(day_arr)):
-#     price_weights=ar.arrangement(3,day_arr[i][0])
-#     print("price_weights")
-#     price_quantity_weights=ar.arrangement(3,day_arr[i][1])
-#     print("price_quantity_weights")
-#     keep_weights=ar.arrangement(3,day_arr[i][2])
-#     print("keep_weights")
-#     keep_quantity_weights=ar.arrangement(3,day_arr[i][3])
-#     print("keep_quantity_weights")
+    for j in range(day_arr[i][1]):
+        price_weight.append(-0.01)
 
-#     price_weights=correct_weight(price_weights)
-#     price_quantity_weights=correct_weight(price_quantity_weights)
-#     keep_weights=correct_weight(keep_weights)
-#     keep_quantity_weights=correct_weight(keep_quantity_weights)
+    while(1):
+        m_is_0=1
+        for j in range(len(day_arr[i][0])+len(day_arr[i][1])):
+            if(j<len(price_weight)):
+                if (df.differential(best_situation,price_weight,quantity_weight,stock_price,stock_quantity,b,j)<0.1 or df.differential(best_situation,price_weight,quantity_weight,stock_price,stock_quantity,b,j)>0.1):
+                    continue
+                else:
+                    price_weight[j]=price_weight[j]-learn_rate*(df.differential(best_situation,price_weight,quantity_weight,stock_price,stock_quantity,b,j))
+                    m_is_0=0
+            else:
+                if (df.differential(best_situation,price_weight,quantity_weight,stock_price,stock_quantity,b,j)<0.1 or df.differential(best_situation,price_weight,quantity_weight,stock_price,stock_quantity,b,j)>0.1):
+                    continue
+                else:
+                    quantity_weight[j-len(day_arr[i][0])]=quantity_weight[j-len(day_arr[i][0])]-learn_rate*(df.differential(best_situation,price_weight,quantity_weight,stock_price,stock_quantity,b,j))
+                    m_is_0=0
+        
+        if(m_is_0==1):
+            break
 
-#     print("Weights_Arrangment "+str(i)+" Done")
+    money=ts.transaction(price_weight,quantity_weight,stock_price,stock_quantity)
 
-#     for j in range(0,len(price_weights)):
-#         print("j")
-#         for k in range(0,len(price_quantity_weights)):
-#             for m in range(0,len(keep_weights)):
-#                 for n in range(0,len(keep_quantity_weights)):
-#                     money=ts.transaction(price_weights[j],price_quantity_weights[k],keep_weights[m],keep_quantity_weights[n],stock_price,stock_quantity)
-#                     if (money>max_money):
-#                         max_money=money
-#                         best[0]=j
-#                         best[1]=k
-#                         best[2]=m
-#                         best[3]=n
-#                     x=x+1
-#                     print(x)
+    if(money>max_money):
+        max_money=money
+        best_price_weight=price_weight
+        best_quantity_weight=quantity_weight
 
-# print(price_weights[best[0]])
-# print(price_quantity_weights[best[1]])
-# print(keep_weights[best[2]])
-# print(keep_quantity_weights[best[3]])
-# print(max_money)
+#result
+print(best_price_weight)
+print(best_quantity_weight)
