@@ -25,14 +25,17 @@ for i in range(2,len(sheetx["A"])+1):
     best_situation.append(float(sheetx["B"+str(i)].value))
 
 #day arrangement
-day_arr=ar.arrangement(len(stock_price),2)
-for i in range(len(day_arr)):
-    for j in range(4):
-        day_arr[i][j]=day_arr[i][j]+1
+# day_arr=ar.arrangement(len(stock_price),2)
+# for i in range(len(day_arr)):
+#     for j in range(2):
+#         day_arr[i][j]=day_arr[i][j]+1
+
+day_arr=[[6,6]]
 
 #gradient decent
-learn_rate=0.000001
+learn_rate=0.000000002
 max_money=0
+money=0
 best_price_weight=[]
 best_quantity_weight=[]
 
@@ -41,39 +44,70 @@ for i in range(len(day_arr)):
     price_weight=[]
     quantity_weight=[]
     b=-100
+    new_price_weight=[]
+    new_quantity_weight=[]
+    new_b=-100
 
     for j in range(day_arr[i][0]):
         price_weight.append(-0.01)
+        new_price_weight.append(-0.01)
 
     for j in range(day_arr[i][1]):
-        price_weight.append(-0.01)
+        quantity_weight.append(-0.01)
+        new_quantity_weight.append(-0.01)
 
-    while(1):
+    x=0
+    ms=[0,0,0,0,0,0,0,0,0,0,0,0,0]
+    while(x<200):
+        x=x+1
         m_is_0=1
-        for j in range(len(day_arr[i][0])+len(day_arr[i][1])):
+        print(str(x)+"\/")
+        print(ms)
+        print(price_weight)
+        print(quantity_weight)
+        print(b)
+        print(money)
+        for j in range(day_arr[i][0]+day_arr[i][1]+1):
+            m=df.differential(best_situation,price_weight,quantity_weight,stock_price,stock_quantity,b,j)
+            ms[j]=m
             if(j<len(price_weight)):
-                if (df.differential(best_situation,price_weight,quantity_weight,stock_price,stock_quantity,b,j)<0.1 or df.differential(best_situation,price_weight,quantity_weight,stock_price,stock_quantity,b,j)>0.1):
+                if (m<0.1 and m>-0.1):
+                    print("countinue")
                     continue
                 else:
-                    price_weight[j]=price_weight[j]-learn_rate*(df.differential(best_situation,price_weight,quantity_weight,stock_price,stock_quantity,b,j))
+                    new_price_weight[j]=price_weight[j]-learn_rate*(m)
+                    m_is_0=0
+            elif(j<len(price_weight)+len(quantity_weight)):
+                if (m<0.1 and m>-0.1):
+                    continue
+                else:
+                    new_quantity_weight[j-day_arr[i][0]]=quantity_weight[j-day_arr[i][0]]-learn_rate*(m)
                     m_is_0=0
             else:
-                if (df.differential(best_situation,price_weight,quantity_weight,stock_price,stock_quantity,b,j)<0.1 or df.differential(best_situation,price_weight,quantity_weight,stock_price,stock_quantity,b,j)>0.1):
+                if (m<0.1 and m>-0.1):
                     continue
                 else:
-                    quantity_weight[j-len(day_arr[i][0])]=quantity_weight[j-len(day_arr[i][0])]-learn_rate*(df.differential(best_situation,price_weight,quantity_weight,stock_price,stock_quantity,b,j))
+                    new_b=b-learn_rate*(m)
                     m_is_0=0
-        
+
+        price_weight=new_price_weight
+        quantity_weight=new_quantity_weight
+        b=new_b
+
         if(m_is_0==1):
             break
 
-    money=ts.transaction(price_weight,quantity_weight,stock_price,stock_quantity)
+        money=ts.transaction(price_weight,quantity_weight,stock_price,stock_quantity,b)
 
-    if(money>max_money):
-        max_money=money
-        best_price_weight=price_weight
-        best_quantity_weight=quantity_weight
+        if(money>max_money and x>5):
+            max_money=money
+            best_price_weight=price_weight
+            best_quantity_weight=quantity_weight
+            best_x=x+1
 
 #result
+print("*****************")
 print(best_price_weight)
 print(best_quantity_weight)
+print(max_money)
+print(best_x)

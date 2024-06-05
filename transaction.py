@@ -1,4 +1,4 @@
-def transaction_val(buy_weight,buy_quantity_weight,stock_price,stock_quantity,day):
+def transaction_val(buy_weight,buy_quantity_weight,stock_price,stock_quantity,b,day):
     #imports
     import cross_multiplication as cm
     import array_plus as ap
@@ -12,11 +12,11 @@ def transaction_val(buy_weight,buy_quantity_weight,stock_price,stock_quantity,da
         quantity_data.append(float(stock_quantity[i-1]))
     
     #count
-    value=ap.array_plus(cm.cross_multiplication(price_data,buy_weight))+ap.array_plus(cm.cross_multiplication(quantity_data,buy_quantity_weight))
+    value=ap.array_plus(cm.cross_multiplication(price_data,buy_weight))+ap.array_plus(cm.cross_multiplication(quantity_data,buy_quantity_weight))+b
 
     return value
 
-def transaction(buy_weight,buy_quantity_weight,stock_price,stock_quantity):
+def transaction(buy_weight,buy_quantity_weight,stock_price,stock_quantity,b):
     #ZeroMoney
     money=1000
     stock=0
@@ -28,7 +28,7 @@ def transaction(buy_weight,buy_quantity_weight,stock_price,stock_quantity):
 
     #get three value
     for i in range(max_day,len(stock_price)+1): #max_day
-        buy_value=transaction_val(buy_weight,buy_quantity_weight,stock_price,stock_quantity,i)
+        buy_value=transaction_val(buy_weight,buy_quantity_weight,stock_price,stock_quantity,b,i)
 
         #transact
         x=buy_value
@@ -45,5 +45,4 @@ def transaction(buy_weight,buy_quantity_weight,stock_price,stock_quantity):
 
     #end count
     money=money+stock*float(len(stock_price)-1)
-    print(money)
     return money
