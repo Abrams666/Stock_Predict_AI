@@ -2,7 +2,7 @@
 import openpyxl
 
 #read excel
-file_path = "D:/Stock AI/Stock_Price_Data/Stock_tsmc.xlsx"
+file_path = "D:/Stock AI/Stock_Price_Data/Stock_00940.xlsx"
 workbook = openpyxl.load_workbook(file_path)
 sheet = workbook.active
 prices=[]
@@ -62,4 +62,4 @@ sheetx["D"+str(len(prices)+1)]=money+(stock*prices[len(prices)-2])
 sheetx["E"+str(len(prices)+1)]=0
 
 #save excel
-workbook.save('best_tsmc_situation.xlsx')
+workbook.save('best_00940_situation.xlsx')
