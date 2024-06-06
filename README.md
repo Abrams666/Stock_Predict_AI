@@ -117,4 +117,4 @@ array_plus(a)
 <h3>Copyright Notice 版權聲明 </h3>
 <p>This work is licensed under Creative Commons Attribution-NonCommercial 4.0 International.</p>
 <p>To view a copy of this license, visit https://creativecommons.org/licenses/by-nc/4.0/</p>
-<p>Copyright © 2024 陳元謙(Abrams666) All Rights Reserved</p>
+<p>Copyright © 2024 陳元謙(Abrams666) All Rights Reserved</p> 
