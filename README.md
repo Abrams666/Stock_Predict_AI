@@ -1,6 +1,6 @@
-*English*
+English
 #stockorderAI
-Use the stock's closing price and trading volume on several days to predict the amount suitable for buying and selling on a certain day.
+>Use the stock's closing price and trading volume on several days to predict the amount suitable for buying and selling on a certain day.
 
 #Introduction to functions and programs
 >arrangement(integer A, integer B)
@@ -55,9 +55,9 @@ Use the stock's closing price and trading volume on several days to predict the 
 >★train.py
 -Training weights, first calculate the permutations and combinations of all weight days, and then continuously correct the weights (original weight - (cost_function slope of the weight direction * learning rate 0.0000000001)) until the error is between -0.1 and 0.1, select all combinations of days The one with the largest final income, and its weight is displayed
 
-*中文*
+中文
 #股票下單AI
-利用股票錢幾日的收盤價、成交量來預測某日適合買進、賣出的數量
+>利用股票錢幾日的收盤價、成交量來預測某日適合買進、賣出的數量
 
 #函式、程式介紹
 >arrangement(整數A,整數B)
@@ -97,7 +97,7 @@ Use the stock's closing price and trading volume on several days to predict the 
 -輸出:一個浮點數
 
 >get_stock_price.py
--利用爬蟲從"https://www.twse.com.tw/zh/trading/historical/stock-day.html"下載每月股價csv檔
+-利用爬蟲從"https://www.twse.com.tw/zh/trading/historical/stock-day.html" 下載每月股價csv檔
 
 >data_combine.py
 -將csv檔整理並轉換為excel檔
