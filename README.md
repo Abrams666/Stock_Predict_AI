@@ -1,4 +1,4 @@
-<h1>English</h1>
+<h1>English Manual</h1>
 <h3>stockorderAI</h3>
 <p>Use the stock's closing price and trading volume on several days to predict the amount suitable for buying and selling on a certain day.</p>
 
@@ -56,7 +56,7 @@ array_plus(a)
 <p>Training weights, first calculate the permutations and combinations of all weight days, and then continuously correct the weights (original weight - (cost_function slope of the weight direction * learning rate 0.0000000001)) until the error is between -0.1 and 0.1, select all combinations of days The one with the largest final income, and its weight is displayed</p>
 <p>Still under testing, some parts are temporarily fixed</p>
 
-<h1>中文</h1>
+<h1>中文說明書</h1>
 <h3>股票下單AI</h3>
 <p>利用股票錢幾日的收盤價、成交量來預測某日適合買進、賣出的數量</p>
 
@@ -114,7 +114,7 @@ array_plus(a)
 <p>訓練權重，先計算所有權重天數的排列組合，後將權重不斷修正(原權重-(cost_function該權重方向的斜率*學習率0.0000000001))直到誤差在-0.1到0.1之間，選出所有天數組合中最終所得最大者，並顯示其權重</p>
 <p>仍在測試中，有些部分暫時固定</p>
 
-<h3>Copyright Notice 版權聲明 </h3>
+<h1>Copyright Notice 版權聲明 </h1>
 <p>This work is licensed under Creative Commons Attribution-NonCommercial 4.0 International.</p>
 <p>To view a copy of this license, visit https://creativecommons.org/licenses/by-nc/4.0/</p>
 <p>Copyright © 2024 陳元謙(Abrams666) All Rights Reserved</p> 

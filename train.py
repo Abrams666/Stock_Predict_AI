@@ -58,9 +58,9 @@ for i in range(len(day_arr)):
         new_quantity_weight.append(-0.01)
 
     x=1
-    ms=[0,0,0,0,0,0,0,0,0,0,0,0,0]
+    ms= [0] * (len(price_weight) + len(quantity_weight) + 1)
     m_is_0=0
-    while(m_is_0==0 and x<501):
+    while(m_is_0==0 and x<101):
         m_is_0=1
 
         for j in range(day_arr[i][0]+day_arr[i][1]+1):
@@ -79,10 +79,12 @@ for i in range(len(day_arr)):
                     new_b=b+learn_rate*(m)
                     m_is_0=0
 
-        for j in range(len(price_weight)):
-            price_weight[j]=new_price_weight[j]
-        for j in range(len(quantity_weight)):
-            quantity_weight[j]=new_quantity_weight[j]
+        # for j in range(len(price_weight)):
+        #     price_weight[j]=new_price_weight[j]
+        # for j in range(len(quantity_weight)):
+        #     quantity_weight[j]=new_quantity_weight[j]
+        price_weight=new_price_weight[:]
+        quantity_weight=new_quantity_weight[:]
         b=new_b
 
         if(m_is_0==1):
@@ -97,13 +99,15 @@ for i in range(len(day_arr)):
         print(b)
         print(money)
 
-        if(money>max_money):
+        if(money>max_money and x>10):
             print("********************************************")
             max_money=money
-            for j in range(len(price_weight)):
-                best_price_weight[j]=price_weight[j]
-            for j in range(len(quantity_weight)):
-                best_quantity_weight[j]=quantity_weight[j]
+            # for j in range(len(price_weight)):
+            #     best_price_weight[j]=price_weight[j]
+            # for j in range(len(quantity_weight)):
+            #     best_quantity_weight[j]=quantity_weight[j]
+            best_price_weight=price_weight[:]
+            best_quantity_weight=quantity_weight[:]
             best_b=b
             best_x=x
 
